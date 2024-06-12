@@ -41,7 +41,7 @@ def lambda_handler(event, context):
     ), Bedrock(
         model_id="anthropic.claude-v2.1", client=bedrock_runtime, region_name="us-east-1"
     )
-    faiss_index = FAISS.load_local("/tmp", embeddings)
+    faiss_index = FAISS.load_local("/tmp", embeddings, allow_dangerous_deserialization=True)
 
     message_history = DynamoDBChatMessageHistory(
         table_name=MEMORY_TABLE, session_id=conversation_id
